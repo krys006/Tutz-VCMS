@@ -1,0 +1,46 @@
+<!-- clinic/templates/base.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+   <!-- Link Tailwind CSS -->
+   <script src="https://cdn.tailwindcss.com"></script>  <!-- CDN version of Tailwind CSS -->
+   
+   <!-- Link Custom CSS -->
+   <link rel="stylesheet" href="{% static 'clinic/css/styles.css' %}">
+   
+   <head>
+    <meta charset="UTF-8">
+    <title>Veterinary Clinic</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- Links for the logged-in user or pet owner -->
+            <a href="{% url 'pet_owner_dashboard' %}">Dashboard</a> |
+            <a href="{% url 'create_appointment' %}">New Appointment</a> |
+            <form action="{% url 'logout' %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="bg-red-600 text-white p-2 rounded">Logout</button>
+          </form>
+          
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Define a block that can be overridden by child templates -->
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <!-- Footer content -->
+    </footer>
+</body>
+</html>
+
+
+
+
+
+

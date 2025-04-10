@@ -1,0 +1,7 @@
+<!-- clinic/templates/clinic/billing_transaction_form.html -->
+<h1>Create Billing Transaction</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Transaction</button>
+</form>

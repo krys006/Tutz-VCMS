@@ -1,0 +1,19 @@
+<!-- clinic/templates/clinic/register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pet Owner Registration</title>
+</head>
+<body>
+    <h2>Register as Pet Owner</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+
+    <p>Already have an account? <a href="{% url 'login' %}">Log in here</a></p>
+</body>
+</html>

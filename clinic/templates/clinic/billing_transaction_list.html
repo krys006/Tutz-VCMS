@@ -1,0 +1,18 @@
+<!-- clinic/templates/clinic/billing_transaction_list.html -->
+<h1>Billing Transactions</h1>
+<table>
+    <tr>
+        <th>Appointment</th>
+        <th>Amount</th>
+        <th>Payment Status</th>
+        <th>Proof of Payment</th>
+    </tr>
+    {% for transaction in transactions %}
+    <tr>
+        <td>{{ transaction.appointment }}</td>
+        <td>{{ transaction.amount }}</td>
+        <td>{{ transaction.payment_status }}</td>
+        <td><img src="{{ transaction.proof_of_payment.url }}" alt="Proof of Payment" width="100"></td>
+    </tr>
+    {% endfor %}
+</table>

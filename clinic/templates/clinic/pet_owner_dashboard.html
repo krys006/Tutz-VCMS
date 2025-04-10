@@ -1,0 +1,70 @@
+<!-- clinic/templates/clinic/pet_owner_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pet Owner Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <header class="bg-gray-100 p-4">
+        <nav class="flex justify-between">
+            <div>
+                <a href="{% url 'pet_owner_dashboard' %}" class="text-blue-600 hover:underline">Dashboard</a> |
+                
+                <a href="{% url 'view_notifications' %}" class="text-blue-600 hover:underline">
+                    Notifications ({{ notifications.count }})
+                </a> |
+                
+                <a href="{% url 'logout' %}" class="text-red-600 hover:underline">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mx-auto p-4">
+        <h2 class="text-2xl font-bold mb-4">Welcome, {{ user.username }}</h2>
+
+        <!-- Appointments Section -->
+        <div class="appointments">
+            <h3 class="text-xl font-semibold text-gray-700 mb-3">Your Appointments:</h3>
+            <ul class="space-y-2">
+                {% for appt in appointments %}
+                    <li class="appointment-item">
+                        <div class="text-lg font-medium text-gray-900">{{ appt.pet_name }}</div>
+                        <div class="text-sm text-gray-500">{{ appt.appointment_date }}</div>
+                        <p class="appointment-status">Status: {{ appt.status }}</p>
+                    </li>
+                {% empty %}
+                    <li class="appointment-item text-gray-500">No appointments yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Pet Registration Link -->
+        <div class="mt-6 text-center">
+            <a href="{% url 'register_pet' %}" class="bg-green-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-green-600">
+                Register Another Pet
+            </a>
+        </div>
+
+       <!-- View Pets, View Appointments, and View Pet Medical Records Links -->
+        <div class="mt-6 flex flex-col items-center space-y-4">
+            <a href="{% url 'pet_list' %}" class="w-64 text-center bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600">
+                View Your Pets
+            </a>
+            <a href="{% url 'appointment_list' %}" class="w-64 text-center bg-indigo-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-indigo-600">
+                View Your Appointments
+            </a>
+            <a href="{% url 'medical_records_list' %}" class="w-64 text-center bg-yellow-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-yellow-600">
+                View Pet Medical Records
+            </a>
+        </div>
+        <!-- Book an Appointment Button -->
+        <div class="mt-6 text-center">
+            <a href="{% url 'create_appointment' %}" class="bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600">
+                Book an Appointment
+            </a>
+        </div>
+    </div>
+</body>
+</html>

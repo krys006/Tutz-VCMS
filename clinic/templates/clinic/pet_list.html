@@ -1,0 +1,38 @@
+<!-- clinic/templates/clinic/pet_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Pets</title>
+    <script src="https://cdn.tailwindcss.com"></script> <!-- CDN version of Tailwind CSS -->
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'pet_owner_dashboard' %}">Dashboard</a> |
+            <a href="{% url 'register_pet' %}">Register New Pet</a> |
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container mx-auto my-4 p-4">
+        <h1 class="text-2xl font-bold mb-4">Your Pets</h1>
+
+        {% if pets %}
+            <ul class="list-none">
+                {% for pet in pets %}
+                    <li class="mb-2 p-4 border-b-2">
+                        <h3 class="text-xl font-semibold">{{ pet.pet_name }}</h3>
+                        <p><strong>Breed:</strong> {{ pet.breed }}</p>
+                        <p><strong>Age:</strong> {{ pet.age }} years</p>
+                        <p><strong>Date of Birth:</strong> {{ pet.date_of_birth }}</p>
+                        <p><strong>Medical Notes:</strong> {{ pet.medical_notes }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You haven't registered any pets yet. <a href="{% url 'register_pet' %}" class="text-blue-500">Register your pet</a> now!</p>
+        {% endif %}
+    </div>
+</body>
+</html>
