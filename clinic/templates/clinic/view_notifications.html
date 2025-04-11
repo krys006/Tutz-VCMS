@@ -31,5 +31,34 @@
             {% endfor %}
         </ul>
     </div>
+    <script>
+        const userId = "{{ request.user.id }}";
+    
+        const socket = new WebSocket(
+            'ws://' + window.location.host + '/ws/notifications/' + userId + '/'
+        );
+    
+        socket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+    
+            // Create a new notification element
+            const newNotif = document.createElement('li');
+            newNotif.classList.add('bg-white', 'p-4', 'rounded', 'shadow-md');
+            newNotif.innerHTML = `
+                <div class="text-xl font-semibold">${data.message}</div>
+                <p class="text-sm text-gray-500">Just now</p>
+                <a href="/clinic/appointment/${data.appointment_id}/view/" class="text-blue-600 hover:underline">View Appointment Details</a>
+            `;
+    
+            // Prepend it to the notifications list
+            const list = document.querySelector('ul.space-y-4');
+            list.insertBefore(newNotif, list.firstChild);
+        };
+    
+        socket.onclose = function(e) {
+            console.error('WebSocket closed unexpectedly');
+        };
+    </script>
+    
 </body>
 </html>
